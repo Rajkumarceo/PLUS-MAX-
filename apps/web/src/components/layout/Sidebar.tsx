@@ -14,6 +14,7 @@ import {
   UserCheck,
   Pill,
   Briefcase,
+  Crown,
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
@@ -78,11 +79,11 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-white border-r border-slate-200 h-[calc(100vh-53px)] overflow-y-auto p-3.5 flex flex-col justify-between hidden md:flex shrink-0 shadow-sm">
+    <aside className="w-64 bg-white/80 backdrop-blur-md border-r border-slate-200 h-[calc(100vh-53px)] overflow-y-auto p-3.5 flex flex-col justify-between hidden md:flex shrink-0 shadow-sm font-sans">
       <div className="space-y-4">
         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-2 flex items-center justify-between border-b border-slate-200 pb-2">
-          <span>Enterprise Navigation</span>
-          <span className="text-[9px] px-1.5 py-0.2 rounded bg-blue-50 text-blue-700 font-bold border border-blue-200">
+          <span className="font-poppins font-extrabold text-slate-900">Titanobova Suites</span>
+          <span className="titan-gold-badge text-[9px]">
             RBAC Router
           </span>
         </div>
@@ -96,27 +97,27 @@ export const Sidebar: React.FC = () => {
               <div key={domain.roleKey} className="space-y-1">
                 <button
                   onClick={() => switchRole(domain.roleKey)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all ${
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
                     isActive
-                      ? 'bg-blue-600 text-white shadow-sm'
+                      ? 'bg-slate-900 text-white shadow-sm'
                       : 'text-slate-800 hover:bg-slate-100 border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-blue-600'}`} />
-                    <span>{domain.title}</span>
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-amber-400' : 'text-amber-600'}`} />
+                    <span className="font-poppins font-semibold">{domain.title}</span>
                   </div>
-                  {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
+                  {isActive && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />}
                 </button>
 
                 {isActive && (
-                  <div className="pl-6 pt-1 pb-2 space-y-1 border-l-2 border-blue-600 ml-3 mt-1">
+                  <div className="pl-6 pt-1 pb-2 space-y-1 border-l-2 border-amber-500 ml-3 mt-1">
                     {domain.modules.map((mod, idx) => (
                       <div
                         key={idx}
-                        className="text-[11px] font-medium text-slate-700 hover:text-blue-600 py-1 px-2 rounded hover:bg-slate-50 cursor-pointer flex items-center gap-1.5"
+                        className="text-[11px] font-bold text-slate-700 hover:text-amber-700 py-1 px-2 rounded-lg hover:bg-amber-50/50 cursor-pointer flex items-center gap-1.5 transition-all"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                         <span>{mod}</span>
                       </div>
                     ))}
@@ -128,12 +129,12 @@ export const Sidebar: React.FC = () => {
         </nav>
       </div>
 
-      <div className="p-3 rounded bg-slate-50 border border-slate-200 text-xs space-y-1 text-slate-800">
-        <div className="flex items-center gap-1.5 text-emerald-700 font-bold text-[11px]">
-          <Lock className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Multi-Tenant Guard Active</span>
+      <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200/80 text-xs space-y-1 text-slate-800 backdrop-blur-md">
+        <div className="flex items-center gap-1.5 text-amber-900 font-black text-[11px]">
+          <Crown className="w-3.5 h-3.5 text-amber-600" />
+          <span>Titanobova Enterprise Shield</span>
         </div>
-        <p className="text-[10px] text-slate-500">Strict data boundaries. Cross-role data leakage prevented.</p>
+        <p className="text-[10px] text-slate-600 font-medium">Multi-tenant isolation & zero-latency WebGPU routing active.</p>
       </div>
     </aside>
   );
