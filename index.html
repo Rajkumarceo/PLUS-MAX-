@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLUX MAX | Enterprise Hospital & Medical College Unified ERP System</title>
+  
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            background: '#030712',
+            glass: {
+              card: 'rgba(15, 23, 42, 0.7)',
+              border: 'rgba(255, 255, 255, 0.1)',
+            }
+          },
+          boxShadow: {
+            glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+            glow: '0 0 25px rgba(6, 182, 212, 0.3)',
+            'glow-emerald': '0 0 25px rgba(16, 185, 129, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .glass-panel-interactive {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .glass-panel-interactive:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 20px rgba(6, 182, 212, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .gradient-text-cyan {
+      background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 50%, #6366f1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(3, 7, 18, 0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 9999px; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- ARUNAI ENGINEERING & MEDICAL COLLEGE AUTONOMOUS INSTITUTIONAL HEADER -->
+  <div class="bg-gradient-to-r from-slate-950 via-blue-950 to-indigo-950 text-white py-2 px-4 text-center border-b border-white/10 text-xs shadow-md flex flex-col sm:flex-row items-center justify-between gap-2">
+    <div class="flex items-center gap-2 font-bold tracking-wide">
+      <span class="px-2 py-0.5 rounded bg-blue-500/30 text-blue-300 border border-blue-500/40 text-[10px]">AUTONOMOUS</span>
+      <span class="text-slate-100 uppercase font-extrabold tracking-wider">Arunai Engineering College & Medical Campus</span>
+      <span class="text-xs text-slate-400 hidden md:inline">• Velu Nagar, Tiruvannamalai - 606 603</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        Attendance Management System Active
+      </span>
+      <span class="text-[11px] font-mono text-cyan-300 hidden lg:inline">Campus Portal Public Index</span>
+    </div>
+  </div>
+
+  <!-- TOP GLASS NAVBAR -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-white/10 px-6 py-3.5 flex items-center justify-between shadow-glass">
+    <div className="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-glow">
+          <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <span class="text-lg font-extrabold tracking-wider text-white flex items-center gap-2">
+            PLUX <span class="gradient-text-cyan">MAX</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-semibold border border-cyan-500/30">v2.0 ENTERPRISE ERP</span>
+          </span>
+          <p class="text-[11px] text-slate-400">Unified Hospital & Medical College Platform (25 Modules)</p>
+        </div>
+      </div>
+
+      <!-- Active Tenant Badge -->
+      <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/60 text-xs text-slate-300">
+        <i data-lucide="building-2" class="w-4 h-4 text-cyan-400"></i>
+        <span class="font-semibold text-slate-200">AIIMS Super Specialty Hospital</span>
+        <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">DPDP & NMC Compliant</span>
+      </div>
+    </div>
+
+    <!-- Center Search Bar -->
+    <div class="hidden md:flex items-center relative w-80">
+      <i data-lucide="search" class="w-4 h-4 absolute left-3 text-slate-400 pointer-events-none"></i>
+      <input
+        type="text"
+        placeholder="Search UHID, Doctor, ICD-10 Code, Invoice..."
+        class="w-full pl-9 pr-4 py-1.5 rounded-xl bg-slate-900/70 border border-white/10 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50"
+      />
+    </div>
+
+    <!-- Right Actions -->
+    <div class="flex items-center gap-3">
+      <button onclick="openLoginModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-600/30 to-indigo-600/30 border border-cyan-500/40 text-xs font-bold text-cyan-200 hover:border-cyan-400 transition-all shadow-glow">
+        <i data-lucide="key-round" class="w-3.5 h-3.5 text-cyan-400"></i>
+        <span>Switch Portal / Role</span>
+      </button>
+
+      <div class="flex items-center gap-2.5 pl-2 border-l border-white/10">
+        <div id="nav-avatar" class="w-8 h-8 rounded-full bg-slate-800 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-bold text-xs">
+          DR
+        </div>
+        <div class="hidden sm:block text-left">
+          <div id="nav-name" class="text-xs font-semibold text-slate-200">Dr. Rajesh Kumar</div>
+          <div id="nav-title" class="text-[10px] text-cyan-400 font-medium">Chief Medical Officer</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <div class="flex-1 flex overflow-hidden">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="w-64 glass-panel border-r border-white/10 h-[calc(100vh-65px)] overflow-y-auto p-4 flex flex-col justify-between hidden md:flex shrink-0">
+      <div class="space-y-6">
+        <div class="text-[11px] font-bold text-slate-400 uppercase tracking-widest px-2">
+          Enterprise ERP Domains (25 Modules)
+        </div>
+
+        <nav class="space-y-1">
+          <button onclick="switchTab('STUDENT')" id="btn-STUDENT" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="graduation-cap" class="w-4 h-4 text-amber-400"></i>
+              <span>1. Academic & Student</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('DOCTOR')" id="btn-DOCTOR" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="stethoscope" class="w-4 h-4 text-cyan-400"></i>
+              <span>2. Teaching Hospital (HIMS)</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('NURSE')" id="btn-NURSE" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="activity" class="w-4 h-4 text-rose-400"></i>
+              <span>3. Nurse Ward & ICU Beds</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('HOSPITAL_ADMIN')" id="btn-HOSPITAL_ADMIN" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="dollar-sign" class="w-4 h-4 text-emerald-400"></i>
+              <span>4. Hospital Billing & GST POS</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('COLLEGE_ADMIN')" id="btn-COLLEGE_ADMIN" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="building-2" class="w-4 h-4 text-indigo-400"></i>
+              <span>5. College Governance & MSR</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('SUPER_ADMIN')" id="btn-SUPER_ADMIN" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-violet-400"></i>
+              <span>6. Super Admin Provisioner</span>
+            </div>
+          </button>
+
+          <button onclick="switchTab('AI')" id="btn-AI" class="tab-btn w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent">
+            <div class="flex items-center gap-2.5">
+              <i data-lucide="brain-circuit" class="w-4 h-4 text-cyan-400"></i>
+              <span>7. AI Triage & ICD-10 Engine</span>
+            </div>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Compliance Box -->
+      <div class="p-3 rounded-xl bg-slate-900/90 border border-emerald-500/30 text-xs space-y-1 text-slate-300">
+        <div class="flex items-center gap-1.5 text-emerald-400 font-bold text-[11px]">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Regulatory Compliance Active
+        </div>
+        <p class="text-[10px] text-slate-400">NABH • NABL • NMC • DPDP Act 2023</p>
+      </div>
+    </aside>
+
+    <!-- VIEWPORT / DASHBOARD CONTENT -->
+    <main class="flex-1 overflow-y-auto p-6 space-y-6">
+
+      <!-- SPATIAL 360 WEBGL HERO CANVAS -->
+      <div class="relative w-full h-[280px] rounded-2xl overflow-hidden glass-panel border border-white/10 flex items-center justify-center shadow-glass">
+        <canvas id="spatialCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+        <div class="relative z-10 text-center px-6 pointer-events-auto">
+          <div id="hero-badge" class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3 shadow-glow transition-all">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>WebGL 360 Spatial Core Engine Online</span>
+          </div>
+          <h1 id="hero-title" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-2 transition-all">
+            PLUX MAX <span class="gradient-text-cyan">Enterprise Command Center</span>
+          </h1>
+          <p id="hero-subtitle" class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto transition-all">
+            Real-time synchronization across 25 Hospital, Clinical, Financial, Academic & AI Predictive modules.
+          </p>
+        </div>
+      </div>
+
+      <!-- METRICS BAR -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="p-4 rounded-xl glass-panel border border-white/10 space-y-1">
+          <div class="text-[11px] text-slate-400 font-semibold uppercase">Total Occupied Beds</div>
+          <div class="text-2xl font-extrabold text-cyan-400" id="metric-beds">89 / 115</div>
+          <div class="text-[10px] text-emerald-400 font-medium">77.3% Capacity</div>
+        </div>
+
+        <div class="p-4 rounded-xl glass-panel border border-white/10 space-y-1">
+          <div class="text-[11px] text-slate-400 font-semibold uppercase">Today OPD Consultations</div>
+          <div class="text-2xl font-extrabold text-indigo-400">342 Patients</div>
+          <div class="text-[10px] text-cyan-400 font-medium">+14% vs yesterday</div>
+        </div>
+
+        <div class="p-4 rounded-xl glass-panel border border-white/10 space-y-1">
+          <div class="text-[11px] text-slate-400 font-semibold uppercase">GST POS Revenue</div>
+          <div class="text-2xl font-extrabold text-emerald-400" id="metric-revenue">₹4,82,500</div>
+          <div class="text-[10px] text-slate-400 font-medium">100% Tax Compliant</div>
+        </div>
+
+        <div class="p-4 rounded-xl glass-panel border border-white/10 space-y-1">
+          <div class="text-[11px] text-slate-400 font-semibold uppercase">Active Clinical Postings</div>
+          <div class="text-2xl font-extrabold text-amber-400">128 Students</div>
+          <div class="text-[10px] text-amber-300 font-medium">NMC Logbook Synced</div>
+        </div>
+      </div>
+
+      <!-- DOMAIN MODULE PANELS -->
+      
+      <!-- DOMAIN MODULE PANELS (6 SEPARATE PERSONA WORKSPACES) -->
+      
+      <!-- 1. 🎓 STUDENT PORTAL MODULE -->
+      <section id="panel-STUDENT" class="tab-panel space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400">
+                <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                  Medical Student Logbook & Academic Workspace
+                  <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">NMC CBME Compliant</span>
+                </h3>
+                <p class="text-xs text-slate-400">DOAP Scale Procedural Logbook, OSCE Examiner Rubric & University Exam Gatekeeper</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold self-start sm:self-auto">
+              MBBS Batch 2023 (Semester 5)
+            </span>
+          </div>
+
+          <!-- Academic Sub-Tabs (Data Maintenance + AI Support Tools) -->
+          <div class="flex flex-wrap gap-2 border-b border-white/10 pb-3">
+            <button onclick="switchAcadSubTab('ATTENDANCE')" id="acad-tab-ATTENDANCE" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/40 text-cyan-300 shadow-glow">
+              Attendance & Biometrics
+            </button>
+            <button onclick="switchAcadSubTab('ADMISSION')" id="acad-tab-ADMISSION" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              Admissions & Student Records
+            </button>
+            <button onclick="switchAcadSubTab('MARKS')" id="acad-tab-MARKS" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              IA Marks & Semester Results
+            </button>
+            <button onclick="switchAcadSubTab('FACULTY')" id="acad-tab-FACULTY" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              Faculty & Schedules
+            </button>
+            <button onclick="switchAcadSubTab('HOSTEL')" id="acad-tab-HOSTEL" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              Hostel & Library Records
+            </button>
+            <button onclick="switchAcadSubTab('AI_RISK')" id="acad-tab-AI_RISK" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-rose-400 hover:text-rose-300 border border-rose-500/30 bg-rose-500/10">
+              🤖 AI Failure Risk & Study Plan
+            </button>
+            <button onclick="switchAcadSubTab('AI_EXAM')" id="acad-tab-AI_EXAM" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-indigo-300 hover:text-indigo-200 border border-indigo-500/30 bg-indigo-500/10">
+              🤖 AI Timetable, Exam Paper & OMR
+            </button>
+            <button onclick="switchAcadSubTab('AI_CHAT')" id="acad-tab-AI_CHAT" class="acad-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-violet-300 hover:text-violet-200 border border-violet-500/30 bg-violet-500/10">
+              🤖 24/7 AI Campus Tutor Chatbot
+            </button>
+          </div>
+
+          <!-- Sub-Tab Views -->
+          <!-- 1. ARUNAI ATTENDANCE MANAGEMENT PORTAL -->
+          <div id="acad-sub-ATTENDANCE" class="acad-sub-panel space-y-5">
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold">MBBS-2023-042</span>
+                  <span class="text-xs font-bold text-white">Rohan Deshmukh</span>
+                </div>
+                <h4 class="text-base font-extrabold text-white mt-1">Subject-Wise Hourly Attendance Register</h4>
+                <p class="text-xs text-slate-400">Arunai Campus Biometrics & RFID Synchronized Attendance</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="text-right">
+                  <div class="text-[10px] text-slate-400 uppercase font-semibold">Overall Attendance</div>
+                  <div class="text-2xl font-extrabold text-emerald-400 font-mono">92.4%</div>
+                </div>
+                <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-extrabold flex items-center gap-1">
+                  ✓ EXAM ELIGIBLE (&ge; 75%)
+                </span>
+              </div>
+            </div>
+
+            <!-- Daily 7-Period Hourly Punch Desk Grid -->
+            <div class="space-y-3 bg-slate-900/70 p-4 rounded-xl border border-white/5">
+              <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
+                <span class="font-bold text-slate-200">Today Hourly Class Periods (24-Jul-2026)</span>
+                <span class="text-slate-400 font-mono text-[11px]">RFID RFID-9081 • Campus Gate 08:45 AM</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-center text-xs">
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 1 (09:00 AM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Surgery</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 2 (10:00 AM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Pathology</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 3 (11:00 AM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Pharmacology</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 4 (12:00 PM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Microbiology</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 5 (02:00 PM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Anatomy Lab</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 6 (03:00 PM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">OPD Posting</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-950/60 border border-emerald-500/30">
+                  <div class="text-[10px] text-slate-400 font-mono">Hour 7 (04:00 PM)</div>
+                  <div class="font-bold text-emerald-300 text-[11px] mt-1">Seminars</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold mt-0.5">PRESENT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. STUDENT ADMISSION RECORDS -->
+          <div id="acad-sub-ADMISSION" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <span class="font-bold text-white text-sm">Student Admission Profile & Academic Track</span>
+                <span class="px-2.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">REG-2023-9081</span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div>
+                  <span class="text-slate-400 block">Full Student Name</span>
+                  <span class="font-bold text-white">Rohan Deshmukh</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block">Admission Quota</span>
+                  <span class="font-bold text-emerald-400">All India Merit (NEET-UG)</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block">Current Batch & Year</span>
+                  <span class="font-bold text-amber-300">MBBS Batch 2023 (Sem 5)</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block">Annual Tuition Fee</span>
+                  <span class="font-bold text-cyan-300">₹1,80,000 (PAID)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. INTERNAL ASSESSMENT & SEMESTER RESULTS -->
+          <div id="acad-sub-MARKS" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <span class="font-bold text-white text-sm">Internal Assessment Marks & University CGPA Transcript</span>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">NMC 40% PASSED</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="text-slate-400">Theory IA Score</div>
+                  <div class="text-xl font-bold text-cyan-300">32 / 50 (64%)</div>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="text-slate-400">Practical & Bedside IA</div>
+                  <div class="text-xl font-bold text-emerald-400">36 / 50 (72%)</div>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="text-slate-400">Cumulative Grade (CGPA)</div>
+                  <div class="text-xl font-bold text-amber-300">8.92 / 10.0</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. FACULTY & COURSE SCHEDULES -->
+          <div id="acad-sub-FACULTY" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+                <h4 class="font-bold text-white text-sm">Faculty Mentors & HOD Directory</h4>
+                <div class="space-y-2">
+                  <div class="p-2 rounded bg-slate-950 flex justify-between items-center">
+                    <div>
+                      <div class="font-bold text-cyan-300">Dr. Rajesh Kumar</div>
+                      <div class="text-[10px] text-slate-400">HOD General Surgery • 42 Didactic Hrs</div>
+                    </div>
+                    <button onclick="alert('Sending email to Dr. Rajesh Kumar')" class="px-2.5 py-1 rounded bg-cyan-600/30 text-cyan-300 font-bold">Contact</button>
+                  </div>
+                  <div class="p-2 rounded bg-slate-950 flex justify-between items-center">
+                    <div>
+                      <div class="font-bold text-cyan-300">Dr. Meera Sharma</div>
+                      <div class="text-[10px] text-slate-400">Professor Pediatrics • 38 Didactic Hrs</div>
+                    </div>
+                    <button onclick="alert('Sending email to Dr. Meera Sharma')" class="px-2.5 py-1 rounded bg-cyan-600/30 text-cyan-300 font-bold">Contact</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+                <h4 class="font-bold text-white text-sm">Weekly Course Lecture Schedule</h4>
+                <div class="space-y-1 text-slate-300">
+                  <div class="flex justify-between py-1 border-b border-white/5">
+                    <span>Mon - Fri 09:00 AM</span>
+                    <span class="font-bold text-cyan-300">Theory Lecture Hall 2</span>
+                  </div>
+                  <div class="flex justify-between py-1 border-b border-white/5">
+                    <span>Mon - Fri 02:00 PM</span>
+                    <span class="font-bold text-amber-300">Anatomy & Pathology Lab</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. HOSTEL & LIBRARY RECORDS -->
+          <div id="acad-sub-HOSTEL" class="acad-sub-panel hidden grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <h4 class="font-bold text-white text-sm">Hostel Room Allotment</h4>
+              <div class="text-slate-300">Block B (Charaka Hall) • Room 304 (Double Occupancy)</div>
+              <span class="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                Night Outpass Approved
+              </span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <h4 class="font-bold text-white text-sm">Central Library & Journal Hub</h4>
+              <div class="text-slate-300">Active Loan: Bailey & Love Short Practice of Surgery (27th Ed)</div>
+              <div class="text-slate-400 text-[11px]">PubMed e-Journal Access: ACTIVE</div>
+            </div>
+          </div>
+
+          <!-- 6. 🤖 AI FAILURE RISK PREDICTOR & STUDY PLAN -->
+          <div id="acad-sub-AI_RISK" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-rose-950/30 to-slate-900 border border-rose-500/30 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="text-base font-extrabold text-white flex items-center gap-2">
+                    🤖 AI Early Warning Student Risk Predictor
+                    <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono border border-rose-500/40">ML Predictive Model</span>
+                  </h4>
+                  <p class="text-xs text-slate-400">Analyzes attendance patterns, internal assessment scores, and clinical logbook completion to predict failing risk</p>
+                </div>
+                <button onclick="runStudentRiskPredictor()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-glow-rose self-start sm:self-auto">
+                  Run Failure Risk Analysis
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-2">
+                  <div class="flex justify-between items-center">
+                    <span class="font-bold text-white">Target Student Risk Profile</span>
+                    <span id="ai-risk-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">LOW RISK (94.2% PASS)</span>
+                  </div>
+                  <p class="text-slate-300 text-[11px]" id="ai-risk-desc">Student attendance (92.4%) and IA scores (68%) are well above the NMC 75% & 40% cutoff thresholds.</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-2">
+                  <div class="font-bold text-amber-300 flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+                    Generated Personalized AI Study Plan
+                  </div>
+                  <ul class="space-y-1 text-slate-300 text-[11px]" id="ai-study-plan">
+                    <li>• Spend 3 hrs reviewing Cardiovascular Murmur Auscultation</li>
+                    <li>• Complete 2 pending DOAP logbook pre-op evaluation entries</li>
+                    <li>• Take 1 practice MCQ mock exam on Acute Myocardial Infarction</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. 🤖 AI TIMETABLE, EXAM PAPER GENERATOR & OMR EVALUATOR -->
+          <div id="acad-sub-AI_EXAM" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <!-- AI Timetable Generator -->
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-indigo-500/30 space-y-3">
+                <h4 class="font-bold text-white text-sm flex items-center gap-1.5">
+                  <i data-lucide="calendar" class="w-4 h-4 text-indigo-400"></i> Automatic AI Timetable
+                </h4>
+                <p class="text-slate-400 text-[11px]">Constraint-based AI solver generating conflict-free lecture & clinical lab schedules.</p>
+                <button onclick="alert('AI generated conflict-free 7-period weekly timetable across 12 departments!')" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold">Generate Timetable</button>
+              </div>
+
+              <!-- AI Exam Paper Generator -->
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-cyan-500/30 space-y-3">
+                <h4 class="font-bold text-white text-sm flex items-center gap-1.5">
+                  <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i> NMC Exam Paper Generator
+                </h4>
+                <p class="text-slate-400 text-[11px]">Generates Bloom\'s Taxonomy compliant 50-MCQ exams with answer keys.</p>
+                <button onclick="alert('Generated 50-MCQ NMC Surgery Exam Paper (Code: EX-2026-SURG)')" class="w-full py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold">Generate Exam Paper</button>
+              </div>
+
+              <!-- Automatic OMR Evaluator -->
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-emerald-500/30 space-y-3">
+                <h4 class="font-bold text-white text-sm flex items-center gap-1.5">
+                  <i data-lucide="check-square" class="w-4 h-4 text-emerald-400"></i> Auto Answer-Sheet Evaluator
+                </h4>
+                <p class="text-slate-400 text-[11px]">Instant optical evaluation of objective MCQ sheets with score analytics.</p>
+                <button onclick="alert('Evaluated 128 Student OMR Sheets! Average Score: 42.4 / 50 (84.8%)')" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold">Evaluate Answer Sheets</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. 🤖 24/7 AI CAMPUS TUTOR CHATBOT -->
+          <div id="acad-sub-AI_CHAT" class="acad-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-violet-500/30 space-y-4">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-violet-600/30 border border-violet-500/40 flex items-center justify-center text-violet-300">
+                    <i data-lucide="bot" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm">24/7 Campus AI Tutor & Query Assistant</h4>
+                    <p class="text-[10px] text-slate-400">Instant answers for medical syllabus, clinical guidelines & exam regulations</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">ONLINE</span>
+              </div>
+
+              <div class="space-y-3 max-h-48 overflow-y-auto p-3 rounded-xl bg-slate-950 border border-white/5" id="aiChatBox">
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-white/5 max-w-md text-slate-200">
+                  <span class="font-bold text-violet-400 block text-[10px] mb-0.5">AI Tutor Assistant</span>
+                  Hello Rohan! How can I assist you with your MBBS General Surgery studies or attendance today?
+                </div>
+              </div>
+
+              <div class="flex gap-2">
+                <input type="text" id="aiChatInput" placeholder="Ask AI Tutor (e.g. What is the treatment protocol for Acute Appendicitis?)..." class="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-white focus:outline-none focus:border-violet-500">
+                <button onclick="sendAiChatMessage()" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs shadow-glow-violet">Ask AI</button>
+              </div>
+            </div>
+          </div>
+            <div class="flex items-center justify-between text-xs text-slate-400">
+              <span>Student Clinical Procedural Entries (DOAP Scale)</span>
+              <span class="text-amber-300 font-semibold">2 Competencies Submitted</span>
+            </div>
+            <div class="space-y-3" id="logbookListContainer">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- 2. OSCE Examiner -->
+          <div id="acad-sub-OSCE" class="acad-sub-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 space-y-4 bg-slate-900/70 p-5 rounded-xl border border-white/5">
+              <div class="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                OSCE Station 4: Cardiovascular Examination Rubric
+              </div>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-slate-400">1. Patient Consent & History Taking</span>
+                    <span class="text-amber-300 font-mono font-bold" id="val-osce1">5 / 5</span>
+                  </div>
+                  <input type="range" min="0" max="5" value="5" id="slider-osce1" oninput="updateOsceScore()" class="w-full accent-amber-500">
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-slate-400">2. Precordial Auscultation & Palpation</span>
+                    <span class="text-amber-300 font-mono font-bold" id="val-osce2">4 / 5</span>
+                  </div>
+                  <input type="range" min="0" max="5" value="4" id="slider-osce2" oninput="updateOsceScore()" class="w-full accent-amber-500">
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-slate-400">3. Patient Communication & Empathy</span>
+                    <span class="text-amber-300 font-mono font-bold" id="val-osce3">5 / 5</span>
+                  </div>
+                  <input type="range" min="0" max="5" value="5" id="slider-osce3" oninput="updateOsceScore()" class="w-full accent-amber-500">
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-slate-400">4. Diagnostic Murmur Identification</span>
+                    <span class="text-amber-300 font-mono font-bold" id="val-osce4">4 / 5</span>
+                  </div>
+                  <input type="range" min="0" max="5" value="4" id="slider-osce4" oninput="updateOsceScore()" class="w-full accent-amber-500">
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 glass-panel p-5 rounded-xl border border-white/10 flex flex-col justify-between">
+              <div class="space-y-3">
+                <span class="text-xs font-semibold text-slate-300">OSCE Total Station Score</span>
+                <div class="text-4xl font-extrabold text-amber-400 font-mono" id="osceTotalDisplay">
+                  18 <span class="text-lg text-slate-400 font-normal">/ 20</span>
+                </div>
+                <p class="text-xs text-slate-300">
+                  Performance Rating: <span class="text-emerald-400 font-bold" id="osceRatingLabel">EXCELLENT</span>
+                </p>
+              </div>
+              <button onclick="alert('OSCE Station grade submitted successfully!')" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-glow transition-all">
+                Submit Station Grade
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. NMC 40% IA Gatekeeper -->
+          <div id="acad-sub-IA" class="acad-sub-panel hidden space-y-4">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-emerald-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <span class="text-xs font-mono text-cyan-300 font-bold">MBBS-2023-042 • Rohan Deshmukh</span>
+                <h4 class="text-sm font-bold text-white mt-1">General Surgery Internal Assessment</h4>
+                <p class="text-xs text-slate-400">Theory IA: 32/50 | Practical IA: 36/50 (Combined 68.0%)</p>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-extrabold flex items-center gap-1">
+                ✓ ELIGIBLE FOR UNIVERSITY EXAM (≥ 40%)
+              </span>
+            </div>
+          </div>
+
+          <!-- 4. Clinical Rosters -->
+          <div id="acad-sub-ROSTER" class="acad-sub-panel hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">ACTIVE POSTING</span>
+              <h4 class="text-sm font-bold text-white">General Surgery Ward 4 & OPD</h4>
+              <p class="text-xs text-slate-400">Mentor: Dr. Rajesh Kumar (HOD Surgery)</p>
+              <div class="text-[11px] text-slate-300">Duration: 01-Jul-2026 to 15-Aug-2026</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">UPCOMING ROTATION</span>
+              <h4 class="text-sm font-bold text-white">Pediatric Emergency & Neonatal ICU</h4>
+              <p class="text-xs text-slate-400">Mentor: Dr. Meera Sharma (Professor)</p>
+              <div class="text-[11px] text-slate-300">Duration: 16-Aug-2026 to 30-Sep-2026</div>
+            </div>
+          </div>
+
+          <!-- 5. Hostel & Library -->
+          <div id="acad-sub-HOSTEL" class="acad-sub-panel hidden grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <h4 class="font-bold text-white text-sm">Hostel Room Allotment</h4>
+              <div class="text-slate-300">Block B (Charaka Hall) • Room 304 (Double Occupancy)</div>
+              <span class="inline-block px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                Night Outpass Approved
+              </span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-2">
+              <h4 class="font-bold text-white text-sm">Central Library & Journal Hub</h4>
+              <div class="text-slate-300">Active Loan: Bailey & Love Short Practice of Surgery (27th Ed)</div>
+              <div class="text-slate-400 text-[11px]">PubMed e-Journal Access: ACTIVE</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 🩺 DOCTOR PORTAL MODULE (TEACHING HOSPITAL HIMS) -->
+      <section id="panel-DOCTOR" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-400">
+                <i data-lucide="stethoscope" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                  Teaching Hospital Information Management System (HIMS)
+                  <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-mono">NABH & HIPAA Compliant</span>
+                </h3>
+                <p class="text-xs text-slate-400">OP/IP Records, Medical History, e-Prescriptions, AI Symptom Disease Predictor & ICU NEWS2 Early Warning</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-semibold self-start sm:self-auto">
+              HOD General Medicine & Senior Consultant
+            </span>
+          </div>
+
+          <!-- HIMS Sub-Tabs -->
+          <div class="flex flex-wrap gap-2 border-b border-white/10 pb-3">
+            <button onclick="switchHimsSubTab('AI_SYMPTOM')" id="hims-tab-AI_SYMPTOM" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-violet-500/20 to-indigo-500/20 border border-violet-500/40 text-violet-300 shadow-glow">
+              🤖 AI Symptom Disease Predictor
+            </button>
+            <button onclick="switchHimsSubTab('ER_TRIAGE')" id="hims-tab-ER_TRIAGE" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-rose-300 hover:text-rose-200 border border-rose-500/30 bg-rose-500/10">
+              🤖 Emergency ER Triage Prioritizer
+            </button>
+            <button onclick="switchHimsSubTab('LIS_SPIKE')" id="hims-tab-LIS_SPIKE" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-amber-300 hover:text-amber-200 border border-amber-500/30 bg-amber-500/10">
+              🤖 LIS Lab Spike Jump Detector
+            </button>
+            <button onclick="switchHimsSubTab('OPIP')" id="hims-tab-OPIP" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              OP / IP Patient Registry
+            </button>
+            <button onclick="switchHimsSubTab('EMR')" id="hims-tab-EMR" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              Medical History & Labs
+            </button>
+            <button onclick="switchHimsSubTab('RX')" id="hims-tab-RX" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              e-Prescriptions & Drug Alerts
+            </button>
+            <button onclick="switchHimsSubTab('IMAGING')" id="hims-tab-IMAGING" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-cyan-300 hover:text-cyan-200 border border-cyan-500/30 bg-cyan-500/10">
+              🤖 AI DICOM Image Analysis (X-Ray/CT)
+            </button>
+            <button onclick="switchHimsSubTab('ICU')" id="hims-tab-ICU" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-rose-300 hover:text-rose-200 border border-rose-500/30 bg-rose-500/10">
+              🤖 ICU NEWS2 Critical Early Warning
+            </button>
+            <button onclick="switchHimsSubTab('PHARMACY')" id="hims-tab-PHARMACY" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-emerald-300 hover:text-emerald-200 border border-emerald-500/30 bg-emerald-500/10">
+              💊 Pharmacy Inventory & Medicine Master
+            </button>
+            <button onclick="switchHimsSubTab('BILLING')" id="hims-tab-BILLING" class="hims-sub-btn px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-slate-400 hover:text-white border border-transparent">
+              Billing & TPA Insurance
+            </button>
+          </div>
+
+          <!-- HIMS Sub-Panels -->
+
+          <!-- 1. 🤖 AI SYMPTOM DISEASE PREDICTOR (Fever + Cough + Low O2 Example) -->
+          <div id="hims-sub-AI_SYMPTOM" class="hims-sub-panel space-y-5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <!-- Left: Symptom Selector & Vitals Input -->
+              <div class="lg:col-span-6 space-y-4 bg-slate-900/70 p-5 rounded-xl border border-white/5 text-xs">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                  <span class="font-bold text-white uppercase tracking-wider text-xs">Patient Symptom & Vitals Input</span>
+                  <span class="text-cyan-300 font-mono font-bold">UHID-2026-9082 • Priya Verma (38F)</span>
+                </div>
+
+                <div class="space-y-3">
+                  <div>
+                    <label class="text-slate-400 block mb-1">Observed Patient Symptoms</label>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                      <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold flex items-center gap-1">
+                        🤒 High Grade Fever (102.4°F)
+                      </span>
+                      <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1">
+                        😮‍💨 Productive Cough
+                      </span>
+                      <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 font-bold flex items-center gap-1">
+                        🫁 Low Oxygen (SpO2 88%)
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-3">
+                    <div>
+                      <label class="text-[10px] text-slate-400 block mb-1">Body Temp (°F)</label>
+                      <input type="number" id="hims-temp" value="102.4" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                    </div>
+                    <div>
+                      <label class="text-[10px] text-slate-400 block mb-1">SpO2 Level (%)</label>
+                      <input type="number" id="hims-spo2" value="88" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                    </div>
+                    <div>
+                      <label class="text-[10px] text-slate-400 block mb-1">Heart Rate (BPM)</label>
+                      <input type="number" id="hims-hr" value="112" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                    </div>
+                  </div>
+
+                  <button onclick="predictSymptomDisease()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs shadow-glow-violet transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Run AI Clinical Differential Disease Inference</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Right: AI Differential Diagnosis Output & Doctor Confirmation -->
+              <div class="lg:col-span-6 space-y-4 bg-slate-900/70 p-5 rounded-xl border border-white/5 text-xs flex flex-col justify-between" id="aiDiseaseResultBox">
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                    <span class="font-bold text-slate-200 uppercase tracking-wider">AI Suggested Possible Differential Conditions</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 font-bold">Doctor Verification Required</span>
+                  </div>
+
+                  <div class="space-y-2" id="aiDiseaseList">
+                    <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/30 flex items-center justify-between">
+                      <div>
+                        <div class="font-bold text-white text-sm">1. Community-Acquired Pneumonia (CAP)</div>
+                        <div class="text-[11px] text-slate-400">ICD-10: J18.9 • High probability based on fever + low SpO2</div>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-mono font-extrabold text-xs">88.4% Match</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
+                      <div>
+                        <div class="font-bold text-white text-sm">2. Viral Pneumonitis (COVID-19 / Influenza)</div>
+                        <div class="text-[11px] text-slate-400">ICD-10: U07.1 • Requires RT-PCR confirmation</div>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono font-extrabold text-xs">74.2% Match</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
+                      <div>
+                        <div class="font-bold text-white text-sm">3. Pulmonary Tuberculosis (TB)</div>
+                        <div class="text-[11px] text-slate-400">ICD-10: A15.0 • Recommended GeneXpert test</div>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-mono font-extrabold text-xs">45.0% Match</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Doctor Final Diagnosis Approval Action -->
+                <div class="p-3.5 rounded-xl bg-violet-950/40 border border-violet-500/30 space-y-2">
+                  <div class="flex justify-between items-center text-slate-300">
+                    <span>Attending Physician Final Diagnosis Decision:</span>
+                    <span class="font-bold text-emerald-400" id="finalDiagText">Community-Acquired Pneumonia (Selected)</span>
+                  </div>
+                  <button onclick="confirmDoctorDiagnosis()" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shadow-glow transition-all">
+                    ✓ Confirm Final Diagnosis & Save to Patient EMR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. OP/IP PATIENT REGISTRY -->
+          <div id="hims-sub-OPIP" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <span class="font-bold text-white text-sm">Today OPD Consultation Queue & IPD Admission Ledger</span>
+                <span class="text-cyan-300 font-bold">342 Registered Patients</span>
+              </div>
+              <div class="space-y-2">
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/10 flex justify-between items-center">
+                  <div>
+                    <span class="font-mono text-cyan-300 font-bold">UHID-2026-9081</span>
+                    <h4 class="font-bold text-white">Aarav Sharma (45M)</h4>
+                    <p class="text-slate-400">Inguinal Hernia Pre-Op Eval • ASA Grade I</p>
+                  </div>
+                  <span class="px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 font-bold">OPD Room 12</span>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/10 flex justify-between items-center">
+                  <div>
+                    <span class="font-mono text-cyan-300 font-bold">UHID-2026-9082</span>
+                    <h4 class="font-bold text-white">Priya Verma (38F)</h4>
+                    <p class="text-slate-400">Acute Substernal Chest Pressure • Fever & Low O2</p>
+                  </div>
+                  <span class="px-2 py-1 rounded bg-rose-500/20 text-rose-300 font-bold">IPD Bed 304</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. MEDICAL HISTORY & LABS -->
+          <div id="hims-sub-EMR" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <h4 class="font-bold text-white text-sm">Patient Medical History & Diagnostic Laboratory Reports</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-cyan-300">Complete Blood Count (CBC)</div>
+                  <div class="text-slate-300">Hb: 13.8 g/dL • WBC: 14,200 /uL (Leukocytosis) • Platelets: 280,000</div>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="font-bold text-cyan-300">Arterial Blood Gas (ABG)</div>
+                  <div class="text-slate-300">pH: 7.36 • PaO2: 62 mmHg (Mild Hypoxemia) • PaCO2: 38 mmHg</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. e-PRESCRIPTIONS & DRUG INTERACTION ALERTS -->
+          <div id="hims-sub-RX" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <span class="font-bold text-white text-sm">e-Prescription Writer with AI Drug Interaction Safety Check</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">AI Safety Check Active</span>
+              </div>
+              <div class="p-3 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 space-y-1">
+                <div class="font-bold flex items-center gap-1.5">
+                  <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+                  AI Contraindication Alert: Warfarin + Aspirin
+                </div>
+                <div class="text-[11px] text-slate-300">Concurrent administration significantly elevates internal GI hemorrhage risk. Recommend alternative antiplatelet.</div>
+              </div>
+              <button onclick="alert('e-Prescription signed and dispatched to Hospital Pharmacy inventory!')" class="w-full py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold">Digitally Sign & Send e-Prescription</button>
+            </div>
+          </div>
+
+          <!-- 5. 🤖 AI DICOM MEDICAL IMAGE ANALYSIS -->
+          <div id="hims-sub-IMAGING" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-cyan-500/30 space-y-4">
+              <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    🤖 AI Medical DICOM Image Lesion Detection
+                    <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-mono">Deep Vision Neural Net</span>
+                  </h4>
+                  <p class="text-[11px] text-slate-400">Automated lesion bounding-box detection on Chest X-Rays, CT Scans, and Brain MRIs</p>
+                </div>
+                <button onclick="alert('AI DICOM Lesion Scan Complete: Right lower lobe alveolar consolidation detected (92.4% confidence)')" class="px-3.5 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold">Analyze DICOM Scan</button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2 flex flex-col items-center justify-center text-center py-8">
+                  <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-300 mb-2">
+                    <i data-lucide="scan" class="w-8 h-8"></i>
+                  </div>
+                  <div class="font-bold text-white text-xs">Chest X-Ray (AP View) DICOM Image</div>
+                  <div class="text-[10px] text-emerald-400 font-mono">Lesion Bounding Box: [X: 142, Y: 210]</div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2 justify-between flex flex-col">
+                  <div>
+                    <span class="text-slate-400 block text-[10px]">AI Radiology Report Findings</span>
+                    <h5 class="font-bold text-cyan-300 text-xs mt-1">Right Lower Lobe Consolidation</h5>
+                    <p class="text-slate-300 text-[11px] mt-1">Appearance consistent with acute lobar pneumonia. No pleural effusion or pneumothorax identified.</p>
+                  </div>
+                  <div class="text-[10px] text-slate-400 border-t border-white/10 pt-2 flex justify-between">
+                    <span>Radiologist Verified: Dr. Anish Kapoor</span>
+                    <span class="text-emerald-400 font-bold">✓ Approved</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 🤖 ICU NEWS2 CRITICAL EARLY WARNING -->
+          <div id="hims-sub-ICU" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-rose-500/30 space-y-4">
+              <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    🤖 ICU Continuous Monitoring & NEWS2 Sepsis Early Warning Score
+                    <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono border border-rose-500/40 animate-pulse">CRITICAL ALERT ENGINE</span>
+                  </h4>
+                  <p class="text-[11px] text-slate-400">National Early Warning Score (NEWS2) real-time risk assessment for ICU patients</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-extrabold">
+                  NEWS2 SCORE: 8 (HIGH RISK)
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/30">
+                  <div class="text-[10px] text-slate-400">Respiratory Rate</div>
+                  <div class="text-xl font-bold text-rose-400 font-mono">28 / min</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/30">
+                  <div class="text-[10px] text-slate-400">SpO2 Oxygen</div>
+                  <div class="text-xl font-bold text-rose-400 font-mono">88 %</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-white/10">
+                  <div class="text-[10px] text-slate-400">Systolic BP</div>
+                  <div class="text-xl font-bold text-amber-300 font-mono">98 mmHg</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-950 border border-white/10">
+                  <div class="text-[10px] text-slate-400">GCS Consciousness</div>
+                  <div class="text-xl font-bold text-emerald-400 font-mono">14 / 15</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. BILLING & TPA INSURANCE -->
+          <div id="hims-sub-BILLING" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3">
+              <div class="flex justify-between items-center border-b border-white/10 pb-2">
+                <span class="font-bold text-white text-sm">Ayushman Bharat (PM-JAY) & Cashless TPA Claims</span>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">TPA APPROVED</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="text-slate-400">ABHA Health ID</div>
+                  <div class="font-mono text-cyan-300 font-bold">ABHA-9081-2241-0092</div>
+                </div>
+                <div class="p-3 rounded-lg bg-slate-950 border border-white/5 space-y-1">
+                  <div class="text-slate-400">Pre-Auth Pre-Approved Limit</div>
+                  <div class="font-mono text-emerald-400 font-bold">₹1,50,000 (PM-JAY Cashless)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. PHARMACY INVENTORY & MEDICINE MASTER -->
+          <div id="hims-sub-PHARMACY" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-emerald-500/30 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    💊 Pharmacy Inventory, Medicine Master & AI Demand Forecasting
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">Role-Based Access</span>
+                  </h4>
+                  <p class="text-[11px] text-slate-400">Medicine master register, current/reserved stock tracking, 15-day expiry alerts & AI reorder recommendations</p>
+                </div>
+                <button onclick="alert('AI Demand Forecast: Paracetamol monthly consumption projected to rise from 1,200 to 1,600 strips in July due to viral season. AI Reorder recommendation dispatched to Procurement!')" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold self-start sm:self-auto">
+                  Run AI Demand & Reorder Forecast
+                </button>
+              </div>
+
+              <!-- AI Stock & Expiry Alerts Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="p-3 rounded-xl bg-slate-950 border border-emerald-500/30 space-y-1">
+                  <div class="text-slate-400">Paracetamol 500mg (Tablet)</div>
+                  <div class="flex justify-between items-center text-slate-200">
+                    <span>Stock: <strong class="text-emerald-400 font-mono">520</strong> (Avail 490)</span>
+                    <span class="text-[10px] text-slate-400 font-mono">Exp: 12/2027</span>
+                  </div>
+                  <div class="text-[10px] text-cyan-300">Cipla Ltd • Storage: Shelf A-12</div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/40 space-y-1">
+                  <div class="text-slate-400 flex justify-between">
+                    <span>Amoxicillin 500mg</span>
+                    <span class="text-rose-400 font-bold animate-pulse">LOW STOCK</span>
+                  </div>
+                  <div class="text-xs text-rose-300 font-bold">Current Stock: 12 (Min Required: 50)</div>
+                  <div class="text-[10px] text-amber-300 font-semibold">🤖 AI Suggestion: Reorder 1,500 Tablets</div>
+                </div>
+
+                <div class="p-3 rounded-xl bg-slate-950 border border-amber-500/40 space-y-1">
+                  <div class="text-slate-400 flex justify-between">
+                    <span>Inj. Ceftriaxone 1g</span>
+                    <span class="text-amber-400 font-bold">EXPIRY WARNING</span>
+                  </div>
+                  <div class="text-xs text-amber-300 font-bold">15 Days Remaining (Exp: 10-Aug-2026)</div>
+                  <div class="text-[10px] text-slate-300">Batch: B-9021 • Dispense Priority STAT</div>
+                </div>
+              </div>
+
+              <!-- Medicine Master Data Table -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-white/10 text-slate-400 uppercase text-[10px] tracking-wider">
+                      <th class="py-2.5 px-3">Medicine ID</th>
+                      <th class="py-2.5 px-3">Medicine / Generic Name</th>
+                      <th class="py-2.5 px-3">Dosage Form</th>
+                      <th class="py-2.5 px-3">Manufacturer</th>
+                      <th class="py-2.5 px-3">Unit Price + GST</th>
+                      <th class="py-2.5 px-3 text-right">Stock Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-white/5 text-slate-200">
+                    <tr class="hover:bg-slate-900/40">
+                      <td class="py-2.5 px-3 font-mono text-cyan-300 font-bold">MED001</td>
+                      <td class="py-2.5 px-3 font-semibold">Paracetamol 500 mg (Crocin)</td>
+                      <td class="py-2.5 px-3">Tablet</td>
+                      <td class="py-2.5 px-3">Cipla Ltd</td>
+                      <td class="py-2.5 px-3 font-mono font-bold">₹12.50 (18% GST)</td>
+                      <td class="py-2.5 px-3 text-right font-bold text-emerald-400">490 Available</td>
+                    </tr>
+                    <tr class="hover:bg-slate-900/40">
+                      <td class="py-2.5 px-3 font-mono text-cyan-300 font-bold">MED002</td>
+                      <td class="py-2.5 px-3 font-semibold">Amoxicillin 500 mg (Mox)</td>
+                      <td class="py-2.5 px-3">Capsule</td>
+                      <td class="py-2.5 px-3">Sun Pharma</td>
+                      <td class="py-2.5 px-3 font-mono font-bold">₹45.00 (18% GST)</td>
+                      <td class="py-2.5 px-3 text-right font-bold text-rose-400">12 Low Stock</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. 🤖 EMERGENCY DEPARTMENT AI TRIAGE PRIORITY ENGINE -->
+          <div id="hims-sub-ER_TRIAGE" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-rose-950/40 to-slate-900 border border-rose-500/30 space-y-4">
+              <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    🤖 Emergency Department AI Triage Prioritizer
+                    <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono border border-rose-500/40">Clinical Priority Queue</span>
+                  </h4>
+                  <p class="text-[11px] text-slate-400">Prioritizes incoming ER cases based on severity to assist triage staff without replacing clinical judgment</p>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-rose-500/50 flex justify-between items-center">
+                  <div>
+                    <span class="font-bold text-white text-sm">Patient A • Severe Substernal Chest Pain (BP 168/98, SpO2 91%)</span>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Suspected Acute Coronary Syndrome (ACS)</div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 font-mono font-extrabold text-xs animate-pulse">
+                    PRIORITY: HIGH (STAT RED)
+                  </span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-amber-500/30 flex justify-between items-center">
+                  <div>
+                    <span class="font-bold text-white text-sm">Patient B • Mild Fever 100.2°F with Cough (SpO2 97%)</span>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Stable vitals, viral URTI signs</div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono font-extrabold text-xs">
+                    PRIORITY: MEDIUM (YELLOW)
+                  </span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-cyan-500/30 flex justify-between items-center">
+                  <div>
+                    <span class="font-bold text-white text-sm">Patient C • Minor Laceration / Broken Left Ring Finger</span>
+                    <div class="text-[11px] text-slate-400 mt-0.5">Vitals normal, stable non-emergent injury</div>
+                  </div>
+                  <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono font-extrabold text-xs">
+                    PRIORITY: LOW (GREEN)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. 🤖 LIS LABORATORY DELTA-CHECK SPIKE JUMP DETECTOR -->
+          <div id="hims-sub-LIS_SPIKE" class="hims-sub-panel hidden space-y-4 text-xs">
+            <div class="p-5 rounded-2xl bg-slate-900/80 border border-amber-500/30 space-y-4">
+              <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    🤖 LIS Laboratory Delta-Check Spike Jump Detector
+                    <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono border border-amber-500/40">Lab Alert System</span>
+                  </h4>
+                  <p class="text-[11px] text-slate-400">Compares today's lab results with previous patient values and flags critical spikes</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/40 space-y-3">
+                <div class="flex justify-between items-center">
+                  <span class="font-bold text-white text-sm">Fasting Blood Sugar Test (FBS)</span>
+                  <span class="px-2.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-extrabold text-xs border border-rose-500/40 animate-pulse">
+                    CRITICAL HIGH SPIKE DETECTED
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
+                  <div class="p-3 rounded-lg bg-slate-900 border border-white/5">
+                    <div class="text-slate-400 text-[10px]">Previous Value (15-May)</div>
+                    <div class="text-lg font-bold text-emerald-400 font-mono">95 mg/dL</div>
+                  </div>
+
+                  <div class="p-3 rounded-lg bg-slate-900 border border-rose-500/30">
+                    <div class="text-slate-400 text-[10px]">Today Value (24-Jul)</div>
+                    <div class="text-lg font-bold text-rose-400 font-mono">260 mg/dL</div>
+                  </div>
+
+                  <div class="p-3 rounded-lg bg-slate-900 border border-amber-500/30 col-span-2 sm:col-span-1">
+                    <div class="text-slate-400 text-[10px]">Delta Increase</div>
+                    <div class="text-lg font-bold text-amber-300 font-mono">+ 173.6% Jump</div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-amber-950/40 border border-amber-500/30 text-amber-300 text-[11px] font-semibold flex items-center gap-2">
+                  <i data-lucide="alert-circle" class="w-4 h-4 text-amber-400"></i>
+                  <span>AI Alert: High increase detected (+165 mg/dL jump). Recommend immediate physician review & HbA1c check!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. 💉 NURSE PORTAL MODULE -->
+      <section id="panel-NURSE" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-400">
+                <i data-lucide="activity" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Nurse Ward Occupancy & Vitals Monitoring</h3>
+                <p class="text-xs text-slate-400">Real-time bed allocation, continuous vital capture, and IV medication schedules</p>
+              </div>
+            </div>
+            <button onclick="admitPatientModal()" class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow-glow transition-all flex items-center gap-1.5">
+              <i data-lucide="user-plus" class="w-4 h-4"></i>
+              <span>Allocate Bed</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="nurseBedGrid">
+            <!-- Render Ward Beds -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 💳 HOSPITAL ADMIN PORTAL MODULE -->
+      <section id="panel-HOSPITAL_ADMIN" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400">
+                <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Hospital Financial ERP & POS Terminal</h3>
+                <p class="text-xs text-slate-400">Patient tax invoices, 18% GST calculation, and Razorpay POS card collection</p>
+              </div>
+            </div>
+            <span class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-extrabold text-xs">
+              Today Revenue: ₹4,82,500
+            </span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-slate-400 uppercase text-[10px] tracking-wider">
+                  <th class="py-3 px-4">Invoice #</th>
+                  <th class="py-3 px-4">Patient / UHID</th>
+                  <th class="py-3 px-4">Subtotal + GST (18%)</th>
+                  <th class="py-3 px-4">Status</th>
+                  <th class="py-3 px-4 text-right">Payment Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-slate-200" id="invoiceTableAdmin">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. 🏛️ COLLEGE ADMIN PORTAL MODULE -->
+      <section id="panel-COLLEGE_ADMIN" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400">
+                <i data-lucide="building-2" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Medical College Governance & NMC Accreditation</h3>
+                <p class="text-xs text-slate-400">NMC Minimum Standard Requirements (MSR), Faculty Teaching Hours & Exam Approvals</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold">
+              NMC MSR Audit Verified
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-1">
+              <div class="text-slate-400">Faculty Didactic Lectures</div>
+              <div class="text-2xl font-bold text-cyan-400">42 / 45 hrs</div>
+              <div class="text-[10px] text-emerald-400">93.3% Target Achieved</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-1">
+              <div class="text-slate-400">Bedside Clinical Teaching</div>
+              <div class="text-2xl font-bold text-amber-400">88 / 90 hrs</div>
+              <div class="text-[10px] text-amber-300">97.7% Target Achieved</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-1">
+              <div class="text-slate-400">PubMed Research Papers</div>
+              <div class="text-2xl font-bold text-emerald-400">14 Publications</div>
+              <div class="text-[10px] text-cyan-400">Indexed in Scopus & PubMed</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. 🛡️ SUPER ADMIN PORTAL MODULE -->
+      <section id="panel-SUPER_ADMIN" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400">
+                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Super Admin Multi-Tenant Provisioner</h3>
+                <p class="text-xs text-slate-400">White-label hospital tenant onboarding, custom domain binding & bed quota limits</p>
+              </div>
+            </div>
+            <button onclick="openTenantModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-glow transition-all flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>Provision Tenant</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="tenantGrid">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. 🤖 AI TRIAGE MODULE -->
+      <section id="panel-AI" class="tab-panel hidden space-y-6">
+        <div class="glass-panel p-6 rounded-2xl border border-white/10 space-y-6 shadow-glass">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-xl bg-violet-500/20 border border-violet-500/40 text-violet-400">
+                <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                  AI Clinical Triage & ICD-10 Predictive Engine
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30">ML Clinical Rules</span>
+                </h3>
+                <p class="text-xs text-slate-400">Instant patient vital risk scoring and automated ICD-10 code recommendations</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Vitals Form -->
+            <div class="lg:col-span-6 space-y-4 bg-slate-900/70 p-5 rounded-xl border border-white/5">
+              <div class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Patient Vitals & Symptoms Assessment</div>
+              
+              <div>
+                <label class="text-[11px] text-slate-400 block mb-1">Chief Symptoms</label>
+                <textarea id="ai-symptoms" rows="2" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 focus:outline-none focus:border-cyan-500/50">Acute substernal chest pressure, radiation to left jaw, severe breathlessness, cold clammy skin</textarea>
+              </div>
+
+              <div class="grid grid-cols-3 gap-3">
+                <div>
+                  <label class="text-[10px] text-slate-400 block mb-1">Systolic BP (mmHg)</label>
+                  <input type="number" id="ai-bp" value="168" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 block mb-1">SpO2 (%)</label>
+                  <input type="number" id="ai-spo2" value="91" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                </div>
+                <div>
+                  <label class="text-[10px] text-slate-400 block mb-1">Heart Rate (BPM)</label>
+                  <input type="number" id="ai-hr" value="118" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-slate-200 font-mono">
+                </div>
+              </div>
+
+              <button onclick="runAiInference()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-xs font-bold text-white shadow-glow transition-all flex items-center justify-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Run AI Clinical Triage Inference</span>
+              </button>
+            </div>
+
+            <!-- Prediction Result -->
+            <div class="lg:col-span-6 space-y-4 bg-slate-900/70 p-5 rounded-xl border border-white/5 flex flex-col justify-between" id="aiResultBox">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                  <span class="text-xs font-semibold text-slate-300">AI Triage Classification</span>
+                  <span id="ai-badge" class="px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse">
+                    CATEGORY RED (CRITICAL)
+                  </span>
+                </div>
+                <div class="space-y-2 text-xs">
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Suggested ICD-10 Code:</span>
+                    <span id="ai-icd" class="font-mono text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-500/30">I21.9</span>
+                  </div>
+                  <div id="ai-desc" class="text-slate-200 font-medium">Acute myocardial infarction, unspecified</div>
+                  <div class="text-slate-400">Recommended Action: <span id="ai-action" class="text-white font-semibold">STAT Emergency OT Transfer & Resuscitation</span></div>
+                </div>
+              </div>
+              <div class="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Model Confidence: 96.4%</span>
+                <span class="text-emerald-400 font-semibold flex items-center gap-1">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> DPDP & HIPAA Audited
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JAVASCRIPT APP ENGINE -->
+  <script>
+    // State Management
+    let wards = [
+      { id: 'w-1', name: 'ICU Block A (Cardiology)', type: 'ICU', total: 20, occupied: 17, avail: 3, rate: 85 },
+      { id: 'w-2', name: 'General Surgery Ward 3', type: 'General', total: 50, occupied: 38, avail: 12, rate: 76 },
+      { id: 'w-3', name: 'Neurology OT Recovery', type: 'OT', total: 15, occupied: 6, avail: 9, rate: 40 },
+      { id: 'w-4', name: 'Pediatric Care Unit', type: 'Pediatric', total: 30, occupied: 28, avail: 2, rate: 93 },
+    ];
+
+    let invoices = [
+      { id: 'inv-9001', num: 'INV-2026-0091', name: 'Aarav Sharma (UHID-9081)', total: 18500, gst: 3330, paid: 18500, status: 'PAID', mode: 'RAZORPAY_UPI' },
+      { id: 'inv-9002', num: 'INV-2026-0092', name: 'Priya Verma (UHID-9082)', total: 4200, gst: 756, paid: 0, status: 'UNPAID', mode: 'PENDING' },
+    ];
+
+    let students = [
+      { roll: 'MBBS-2023-042', name: 'Rohan Deshmukh', batch: 'MBBS Batch 2023 (Sem 5)', posting: 'General Surgery Ward 4', att: 92.4, score: 8.5 },
+      { roll: 'MD-CARDIO-2024-009', name: 'Dr. Ananya Ray', batch: 'MD Cardiology 2024 (Sem 3)', posting: 'Cardiac Cath Lab & ICU', att: 98.1, score: 9.8 },
+    ];
+
+    let logbookEntries = [
+      { id: 'log-1', student: 'Rohan Deshmukh', code: 'SU11.1 (Pre-op Evaluation)', level: 'PERFORMED', uhid: 'UHID-2026-9081', notes: 'Assessed 45M for hernia repair. Checked ASA grading & airway.', rating: 5, sign: true, by: 'Dr. Rajesh Kumar (HOD Surgery)' },
+      { id: 'log-2', student: 'Rohan Deshmukh', code: 'IM3.4 (Acute Myocardial Infarction)', level: 'ASSISTED', uhid: 'UHID-2026-9082', notes: 'Observed IV heparin bolus in Cardiac ICU.', rating: 4, sign: false, by: null }
+    ];
+
+    let tenants = [
+      { name: 'AIIMS Super Specialty Hospital', domain: 'aiims.pluxmax.com', status: 'ACTIVE', beds: 1500, students: 2000 },
+      { name: 'Apollo Hospital & Health Sciences', domain: 'apollo.pluxmax.com', status: 'ACTIVE', beds: 800, students: 1000 },
+    ];
+
+    // HIMS Sub-Tab Switching
+    function switchHimsSubTab(subId) {
+      document.querySelectorAll('.hims-sub-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.hims-sub-btn').forEach(b => {
+        b.classList.remove('bg-gradient-to-r', 'from-violet-500/20', 'to-indigo-500/20', 'border-violet-500/40', 'text-violet-300', 'shadow-glow');
+        b.classList.add('text-slate-400', 'border-transparent');
+      });
+
+      const target = document.getElementById('hims-sub-' + subId);
+      if (target) target.classList.remove('hidden');
+      const activeBtn = document.getElementById('hims-tab-' + subId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400', 'border-transparent');
+        activeBtn.classList.add('bg-gradient-to-r', 'from-violet-500/20', 'to-indigo-500/20', 'border-violet-500/40', 'text-violet-300', 'shadow-glow');
+      }
+    }
+
+    // AI Symptom Disease Predictor & Doctor Confirmation
+    function predictSymptomDisease() {
+      const temp = parseFloat(document.getElementById('hims-temp').value);
+      const spo2 = parseFloat(document.getElementById('hims-spo2').value);
+
+      const list = document.getElementById('aiDiseaseList');
+      const finalBox = document.getElementById('finalDiagText');
+
+      if (spo2 < 90 || temp > 101) {
+        list.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/30 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white text-sm">1. Community-Acquired Pneumonia (CAP)</div>
+              <div class="text-[11px] text-slate-400">ICD-10: J18.9 • High probability based on fever + low SpO2 (88%)</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-mono font-extrabold text-xs">88.4% Match</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white text-sm">2. Viral Pneumonitis (COVID-19 / Influenza)</div>
+              <div class="text-[11px] text-slate-400">ICD-10: U07.1 • Requires RT-PCR confirmation</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 font-mono font-extrabold text-xs">74.2% Match</span>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white text-sm">3. Pulmonary Tuberculosis (TB)</div>
+              <div class="text-[11px] text-slate-400">ICD-10: A15.0 • Recommended GeneXpert sputum test</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-mono font-extrabold text-xs">45.0% Match</span>
+          </div>
+        `;
+        finalBox.innerText = 'Community-Acquired Pneumonia (Selected)';
+      } else {
+        list.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-950 border border-emerald-500/30 flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white text-sm">1. Upper Respiratory Tract Infection (URTI)</div>
+              <div class="text-[11px] text-slate-400">ICD-10: J06.9 • Mild viral illness</div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono font-extrabold text-xs">92.0% Match</span>
+          </div>
+        `;
+        finalBox.innerText = 'Upper Respiratory Tract Infection (Selected)';
+      }
+      alert('AI Symptom Disease Prediction Complete! Suggested conditions: 1. Pneumonia (88%), 2. COVID-19 (74%), 3. Tuberculosis (45%). Doctor will make final diagnosis.');
+    }
+
+    function confirmDoctorDiagnosis() {
+      alert('Final Diagnosis "Community-Acquired Pneumonia (ICD-10: J18.9)" confirmed by Dr. Rajesh Kumar & saved to patient EMR!');
+    }
+
+    function switchAcadSubTab(subId) {
+      document.querySelectorAll('.acad-sub-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.acad-sub-btn').forEach(b => {
+        b.classList.remove('bg-gradient-to-r', 'from-amber-500/20', 'to-yellow-500/20', 'border-amber-500/40', 'text-amber-300', 'shadow-glow');
+        b.classList.add('text-slate-400', 'border-transparent');
+      });
+
+      const target = document.getElementById('acad-sub-' + subId);
+      if (target) target.classList.remove('hidden');
+      const activeBtn = document.getElementById('acad-tab-' + subId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400', 'border-transparent');
+        activeBtn.classList.add('bg-gradient-to-r', 'from-amber-500/20', 'to-yellow-500/20', 'border-amber-500/40', 'text-amber-300', 'shadow-glow');
+      }
+    }
+
+    function renderLogbook() {
+      const container = document.getElementById('logbookListContainer');
+      if (!container) return;
+      container.innerHTML = logbookEntries.map(e => `
+        <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3 hover:border-amber-500/30 transition-all">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-mono text-amber-300 font-bold px-2 py-0.5 rounded bg-amber-950/60 border border-amber-500/20">${e.code}</span>
+              <h4 class="text-sm font-bold text-white mt-1">${e.student}</h4>
+              <p class="text-xs text-slate-300 mt-0.5">${e.notes}</p>
+            </div>
+            <div class="text-right">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">${e.level}</span>
+              ${e.uhid ? `<div class="text-[10px] font-mono text-slate-400 mt-1">Bound to ${e.uhid}</div>` : ''}
+            </div>
+          </div>
+          <div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">
+            <div class="text-amber-400 font-bold">★ ${e.rating}/5 Competency Rating</div>
+            ${e.sign 
+              ? `<span class="text-emerald-400 font-semibold text-xs">✓ Verified: ${e.by}</span>`
+              : `<button onclick="signLogbook('${e.id}')" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold">Faculty E-Sign</button>`}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function signLogbook(id) {
+      const entry = logbookEntries.find(l => l.id === id);
+      if (entry) {
+        entry.sign = true;
+        entry.by = 'Dr. Rajesh Kumar (Verified E-Sign)';
+        renderLogbook();
+        alert('Logbook competency entry verified and digitally signed!');
+      }
+    }
+
+    function updateOsceScore() {
+      const s1 = parseInt(document.getElementById('slider-osce1').value);
+      const s2 = parseInt(document.getElementById('slider-osce2').value);
+      const s3 = parseInt(document.getElementById('slider-osce3').value);
+      const s4 = parseInt(document.getElementById('slider-osce4').value);
+
+      document.getElementById('val-osce1').innerText = `${s1} / 5`;
+      document.getElementById('val-osce2').innerText = `${s2} / 5`;
+      document.getElementById('val-osce3').innerText = `${s3} / 5`;
+      document.getElementById('val-osce4').innerText = `${s4} / 5`;
+
+      const total = s1 + s2 + s3 + s4;
+      document.getElementById('osceTotalDisplay').innerHTML = `${total} <span class="text-lg text-slate-400 font-normal">/ 20</span>`;
+      
+      const label = document.getElementById('osceRatingLabel');
+      if (total >= 16) {
+        label.innerText = 'EXCELLENT';
+        label.className = 'text-emerald-400 font-bold';
+      } else if (total >= 12) {
+        label.innerText = 'GOOD';
+        label.className = 'text-cyan-400 font-bold';
+      } else {
+        label.innerText = 'NEEDS PRACTICE';
+        label.className = 'text-amber-400 font-bold';
+      }
+    }
+
+    // AI Risk Predictor & Chatbot Handlers
+    function runStudentRiskPredictor() {
+      const badge = document.getElementById('ai-risk-badge');
+      const desc = document.getElementById('ai-risk-desc');
+      const plan = document.getElementById('ai-study-plan');
+
+      badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30';
+      badge.innerText = 'LOW RISK (94.2% PASS PROBABILITY)';
+      desc.innerText = 'Student attendance (92.4%) and IA scores (68.0%) are well above the NMC 75% & 40% cutoff thresholds. Low probability of failing university finals.';
+      plan.innerHTML = `
+        <li>• Maintain 90%+ attendance in Clinical Surgery Wards</li>
+        <li>• Complete pending 2 DOAP procedural entries with faculty e-signatures</li>
+        <li>• Take 1 weekly NMC CBME mock exam paper</li>
+      `;
+      alert('AI Student Failure Risk Analysis Complete! Student evaluated as Low Risk (94.2% Pass Probability).');
+    }
+
+    function sendAiChatMessage() {
+      const input = document.getElementById('aiChatInput');
+      const box = document.getElementById('aiChatBox');
+      if (!input || !box || !input.value.trim()) return;
+
+      const query = input.value.trim();
+      input.value = '';
+
+      // Append User message
+      box.innerHTML += `
+        <div class="p-2.5 rounded-lg bg-violet-950/60 border border-violet-500/30 text-white ml-auto max-w-md">
+          <span class="font-bold text-violet-300 block text-[10px] mb-0.5">Rohan Deshmukh</span>
+          ${query}
+        </div>
+      `;
+
+      // Simulating AI Response
+      setTimeout(() => {
+        let reply = "Under NMC CBME guidelines, acute management involves initial resuscitation, IV analgesia, pre-op antibiotic prophylaxis, and laparoscopic appendectomy evaluation.";
+        if (query.toLowerCase().includes('attendance')) {
+          reply = "Your current attendance is 92.4%, which fulfills the NMC mandatory 75% cutoff for university exam hall tickets!";
+        } else if (query.toLowerCase().includes('exam') || query.toLowerCase().includes('marks')) {
+          reply = "Your Internal Assessment score is 68.0% (Theory: 32/50, Practical: 36/50), well above the 40% NMC eligibility filter.";
+        }
+
+        box.innerHTML += `
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-white/5 max-w-md text-slate-200">
+            <span class="font-bold text-violet-400 block text-[10px] mb-0.5">AI Campus Tutor</span>
+            ${reply}
+          </div>
+        `;
+        box.scrollTop = box.scrollHeight;
+      }, 500);
+    }
+
+    // Tab Switching for 6 Dedicated Persona Modules + AI
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+
+      const btnMap = {
+        STUDENT: 'btn-STUDENT',
+        DOCTOR: 'btn-DOCTOR',
+        NURSE: 'btn-NURSE',
+        HOSPITAL_ADMIN: 'btn-HOSPITAL_ADMIN',
+        COLLEGE_ADMIN: 'btn-COLLEGE_ADMIN',
+        SUPER_ADMIN: 'btn-SUPER_ADMIN',
+        AI: 'btn-AI'
+      };
+
+      Object.values(btnMap).forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+          btn.className = 'tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all text-slate-300 hover:bg-slate-800/60 border border-transparent';
+          const oldDot = btn.querySelector('.active-dot');
+          if (oldDot) oldDot.remove();
+        }
+      });
+
+      const panel = document.getElementById('panel-' + tabId);
+      if (panel) panel.classList.remove('hidden');
+
+      const activeBtn = document.getElementById(btnMap[tabId]);
+      if (activeBtn) {
+        activeBtn.className = 'tab-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 border border-cyan-500/40 text-cyan-300 shadow-glow';
+        if (!activeBtn.querySelector('.active-dot')) {
+          const dot = document.createElement('span');
+          dot.className = 'active-dot w-2 h-2 rounded-full bg-cyan-400 animate-pulse';
+          activeBtn.appendChild(dot);
+        }
+      }
+    }
+
+    // Render Beds in Nurse Panel
+    function renderBeds() {
+      const container = document.getElementById('nurseBedGrid');
+      if (!container) return;
+      container.innerHTML = wards.map(w => `
+        <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3 hover:border-cyan-500/30 transition-all">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-medium">${w.type}</span>
+              <h4 class="text-sm font-bold text-white mt-1">${w.name}</h4>
+            </div>
+            <span class="text-xs font-bold px-2 py-0.5 rounded ${w.rate > 90 ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : w.rate > 75 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'}">
+              ${w.rate}%
+            </span>
+          </div>
+          <div class="space-y-1">
+            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all duration-500 ${w.rate > 90 ? 'bg-rose-500' : w.rate > 75 ? 'bg-amber-500' : 'bg-emerald-500'}" style="width: ${w.rate}%"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>Occupied: ${w.occupied}</span>
+              <span class="text-cyan-400 font-semibold">Available: ${w.avail}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Admit Patient Action
+    function admitPatientModal() {
+      if (wards[0].avail > 0) {
+        wards[0].occupied += 1;
+        wards[0].avail -= 1;
+        wards[0].rate = Math.round((wards[0].occupied / wards[0].total) * 100);
+        renderBeds();
+        alert('Patient admitted to ICU Block A successfully! Bed allocated.');
+      }
+    }
+
+    // AI Inference Action
+    function runAiInference() {
+      const bp = parseInt(document.getElementById('ai-bp').value);
+      const spo2 = parseInt(document.getElementById('ai-spo2').value);
+      
+      const badge = document.getElementById('ai-badge');
+      const icd = document.getElementById('ai-icd');
+      const desc = document.getElementById('ai-desc');
+      const action = document.getElementById('ai-action');
+
+      if (spo2 < 92 || bp > 160) {
+        badge.className = 'px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse';
+        badge.innerText = 'CATEGORY RED (CRITICAL)';
+        icd.innerText = 'I21.9';
+        desc.innerText = 'Acute myocardial infarction, unspecified';
+        action.innerText = 'STAT Emergency OT Transfer & Resuscitation';
+      } else {
+        badge.className = 'px-3 py-1 rounded-full text-xs font-extrabold tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        badge.innerText = 'CATEGORY GREEN (STABLE)';
+        icd.innerText = 'R07.9';
+        desc.innerText = 'Chest pain, unspecified';
+        action.innerText = 'Routine OPD Consultation & ECG';
+      }
+    }
+
+    // Render Invoices in Hospital Admin Panel
+    function renderInvoices() {
+      const container = document.getElementById('invoiceTableAdmin');
+      if (!container) return;
+      container.innerHTML = invoices.map(i => `
+        <tr class="hover:bg-slate-900/40 transition-colors">
+          <td class="py-3 px-4 font-mono text-cyan-300 font-semibold">${i.num}</td>
+          <td class="py-3 px-4 font-medium">${i.name}</td>
+          <td class="py-3 px-4 font-mono font-bold text-white">₹${i.total.toLocaleString('en-IN')} <span class="text-[10px] text-slate-400 font-normal">(GST ₹${i.gst})</span></td>
+          <td class="py-3 px-4">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${i.status === 'PAID' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}">
+              ${i.status}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right">
+            ${i.status === 'UNPAID' 
+              ? `<button onclick="payInvoice('${i.id}')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-[11px] shadow-glow-emerald">Collect ₹${i.total} (POS)</button>`
+              : `<span class="text-emerald-400 font-semibold text-[11px]">✓ Paid via ${i.mode}</span>`}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function payInvoice(id) {
+      const inv = invoices.find(i => i.id === id);
+      if (inv) {
+        inv.status = 'PAID';
+        inv.mode = 'POS_CREDIT_CARD';
+        renderInvoices();
+        document.getElementById('metric-revenue').innerText = '₹4,86,700';
+        alert('Payment of ₹' + inv.total + ' processed via Razorpay POS!');
+      }
+    }
+
+    // Render Academic
+    function renderAcademic() {
+      const container = document.getElementById('academicGrid');
+      if (!container) return;
+      container.innerHTML = students.map(s => `
+        <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3 hover:border-amber-500/30 transition-all">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] font-mono text-amber-300 font-bold px-2 py-0.5 rounded bg-amber-950/60 border border-amber-500/20">${s.roll}</span>
+              <h4 class="text-sm font-bold text-white mt-1.5">${s.name}</h4>
+              <p class="text-xs text-slate-400">${s.batch}</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-slate-400">Clinical Score</div>
+              <div class="text-sm font-extrabold text-emerald-400">${s.score} / 10</div>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-white/5 flex items-center justify-between text-xs">
+            <span class="text-slate-300">Hospital Posting:</span>
+            <span class="text-cyan-300 font-semibold">${s.posting}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Render Tenants
+    function renderTenants() {
+      const container = document.getElementById('tenantGrid');
+      if (!container) return;
+      container.innerHTML = tenants.map(t => `
+        <div class="p-4 rounded-xl bg-slate-900/70 border border-white/5 space-y-3 hover:border-indigo-500/30 transition-all">
+          <div class="flex justify-between items-start">
+            <div>
+              <h4 class="text-sm font-bold text-white">${t.name}</h4>
+              <p class="text-[11px] text-cyan-300 font-mono">${t.domain}</p>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">${t.status}</span>
+          </div>
+          <div class="pt-2 border-t border-white/5 grid grid-cols-2 gap-2 text-xs text-slate-300">
+            <div>Licensed Beds: <span class="font-bold text-white">${t.beds}</span></div>
+            <div>Licensed Students: <span class="font-bold text-white">${t.students}</span></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openTenantModal() {
+      const name = prompt('Enter Tenant Organization Name:', 'Manipal Super Specialty Hospital');
+      if (name) {
+        tenants.unshift({ name: name, domain: name.toLowerCase().replace(/[^a-z]/g, '') + '.pluxmax.com', status: 'ACTIVE', beds: 500, students: 500 });
+        renderTenants();
+      }
+    }
+
+    // WebGL 360 Spatial Canvas Simulation
+    function initCanvas() {
+      const canvas = document.getElementById('spatialCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = canvas.parentElement.clientWidth;
+      let height = canvas.height = canvas.parentElement.clientHeight;
+
+      window.addEventListener('resize', () => {
+        if (!canvas.parentElement) return;
+        width = canvas.width = canvas.parentElement.clientWidth;
+        height = canvas.height = canvas.parentElement.clientHeight;
+      });
+
+      const nodes = Array.from({ length: 40 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 2 + 1.5
+      }));
+
+      let rot = 0;
+
+      function render() {
+        ctx.clearRect(0, 0, width, height);
+        rot += 0.003;
+
+        const cx = width / 2;
+        const cy = height / 2;
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(rot);
+
+        const grad = ctx.createRadialGradient(0, 0, 40, 0, 0, 200);
+        grad.addColorStop(0, 'rgba(6, 182, 212, 0.15)');
+        grad.addColorStop(0.5, 'rgba(99, 102, 241, 0.08)');
+        grad.addColorStop(1, 'rgba(3, 7, 18, 0)');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(0, 0, 200, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(6, 182, 212, 0.2)';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 180, 80, rot * 0.5, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+
+        nodes.forEach((n, i) => {
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > width) n.vx *= -1;
+          if (n.y < 0 || n.y > height) n.vy *= -1;
+
+          for (let j = i + 1; j < nodes.length; j++) {
+            const o = nodes[j];
+            const dx = o.x - n.x;
+            const dy = o.y - n.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.moveTo(n.x, n.y);
+              ctx.lineTo(o.x, o.y);
+              ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 100) * 0.2})`;
+              ctx.stroke();
+            }
+          }
+
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+          ctx.fillStyle = i % 2 === 0 ? '#06b6d4' : '#10b981';
+          ctx.fill();
+        });
+
+        requestAnimationFrame(render);
+      }
+      render();
+    }
+  </script>
+
+  <!-- MULTI-ROLE LOGIN PORTAL MODAL -->
+  <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-xl w-full border border-white/15 space-y-6 shadow-glass relative">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 flex items-center justify-center shadow-glow">
+            <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-extrabold text-white flex items-center gap-2">
+              PLUX MAX <span class="gradient-text-cyan">Portal Authentication</span>
+            </h3>
+            <p class="text-xs text-slate-400">Select your persona role to access specialized ERP modules</p>
+          </div>
+        </div>
+        <button onclick="closeLoginModal()" class="p-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Persona Role Tabs -->
+      <div class="grid grid-cols-3 gap-2">
+        <button onclick="selectPersonaRole('STUDENT')" id="role-btn-STUDENT" class="persona-tab p-3 rounded-xl bg-slate-900/80 border border-cyan-500/50 text-cyan-300 text-xs font-bold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="graduation-cap" class="w-5 h-5 text-cyan-400"></i>
+          <span>Student</span>
+        </button>
+
+        <button onclick="selectPersonaRole('DOCTOR')" id="role-btn-DOCTOR" class="persona-tab p-3 rounded-xl bg-slate-900/40 border border-white/5 text-slate-300 hover:text-white text-xs font-semibold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="stethoscope" class="w-5 h-5 text-slate-400"></i>
+          <span>Doctor / Faculty</span>
+        </button>
+
+        <button onclick="selectPersonaRole('NURSE')" id="role-btn-NURSE" class="persona-tab p-3 rounded-xl bg-slate-900/40 border border-white/5 text-slate-300 hover:text-white text-xs font-semibold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="activity" class="w-5 h-5 text-slate-400"></i>
+          <span>Nurse / Staff</span>
+        </button>
+
+        <button onclick="selectPersonaRole('HOSPITAL_ADMIN')" id="role-btn-HOSPITAL_ADMIN" class="persona-tab p-3 rounded-xl bg-slate-900/40 border border-white/5 text-slate-300 hover:text-white text-xs font-semibold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="dollar-sign" class="w-5 h-5 text-slate-400"></i>
+          <span>Hospital Admin</span>
+        </button>
+
+        <button onclick="selectPersonaRole('COLLEGE_ADMIN')" id="role-btn-COLLEGE_ADMIN" class="persona-tab p-3 rounded-xl bg-slate-900/40 border border-white/5 text-slate-300 hover:text-white text-xs font-semibold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="building-2" class="w-5 h-5 text-slate-400"></i>
+          <span>College Admin</span>
+        </button>
+
+        <button onclick="selectPersonaRole('SUPER_ADMIN')" id="role-btn-SUPER_ADMIN" class="persona-tab p-3 rounded-xl bg-slate-900/40 border border-white/5 text-slate-300 hover:text-white text-xs font-semibold flex flex-col items-center gap-1.5 transition-all">
+          <i data-lucide="shield-alert" class="w-5 h-5 text-slate-400"></i>
+          <span>Super Admin</span>
+        </button>
+      </div>
+
+      <!-- Selected Persona Details Form -->
+      <div class="space-y-4 bg-slate-900/70 p-4 rounded-2xl border border-white/5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-400">Authenticated Persona Target:</span>
+          <span id="login-persona-title" class="font-bold text-cyan-300">Medical Student (MBBS)</span>
+        </div>
+
+        <div>
+          <label class="text-[11px] text-slate-400 block mb-1">Email / Identifier</label>
+          <input type="text" id="login-email" value="rohan.mbbs2023@aiims.edu" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono">
+        </div>
+
+        <div>
+          <label class="text-[11px] text-slate-400 block mb-1">Password</label>
+          <input type="password" value="••••••••••••" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono">
+        </div>
+
+        <div>
+          <label class="text-[11px] text-slate-400 block mb-1">2FA / MFA Security Code (Optional)</label>
+          <input type="text" placeholder="e.g. 584920" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-slate-300 font-mono">
+        </div>
+
+        <!-- 1-Click Demo Quick Login Button -->
+        <button onclick="executePersonaLogin()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-glow transition-all flex items-center justify-center gap-2">
+          <i data-lucide="log-in" class="w-4 h-4"></i>
+          <span id="login-btn-text">Authenticate & Launch Student Portal</span>
+        </button>
+      </div>
+
+      <div class="text-center text-[11px] text-slate-500">
+        Enterprise OAuth 2.0 • TLS 1.3 Encryption • Multi-Tenant Isolated Session
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Persona Definitions with Hero Text Synchronization & Dedicated Module Mapping
+    const personaMap = {
+      STUDENT: {
+        roleKey: 'STUDENT',
+        title: 'Medical Student (MBBS)',
+        name: 'Rohan Deshmukh',
+        email: 'rohan.mbbs2023@aiims.edu',
+        badge: 'RD',
+        tenant: 'AIIMS Super Specialty Medical College',
+        tab: 'STUDENT',
+        heroBadge: '🎓 NMC CBME STUDENT PORTAL ACTIVE',
+        heroTitle: 'Welcome back, <span class="gradient-text-cyan">Rohan Deshmukh</span>',
+        heroSubtitle: '2 Procedural Logbook competencies pending faculty signature • Active posting in General Surgery Ward 4.'
+      },
+      DOCTOR: {
+        roleKey: 'DOCTOR',
+        title: 'Chief Medical Officer / HOD',
+        name: 'Dr. Rajesh Kumar',
+        email: 'dr.rajesh@aiims.edu',
+        badge: 'DR',
+        tenant: 'AIIMS Super Specialty Hospital',
+        tab: 'DOCTOR',
+        heroBadge: '🩺 CLINICAL EMR & AI TRIAGE ACTIVE',
+        heroTitle: 'Welcome back, <span class="gradient-text-cyan">Dr. Rajesh Kumar</span>',
+        heroSubtitle: '342 OPD Consultations registered today • 3 Critical Category RED triage risk alerts pending review.'
+      },
+      NURSE: {
+        roleKey: 'NURSE',
+        title: 'Senior ICU Charge Nurse',
+        name: 'Priya Sharma',
+        email: 'nurse.priya@aiims.edu',
+        badge: 'NS',
+        tenant: 'AIIMS Super Specialty Hospital',
+        tab: 'NURSE',
+        heroBadge: '💉 ICU WARD CARE & BED MANAGEMENT',
+        heroTitle: 'Welcome back, <span class="gradient-text-cyan">Priya Sharma</span>',
+        heroSubtitle: '89 / 115 Beds Occupied (77.3% capacity) • 3 ICU Beds available in Cardiology Block A.'
+      },
+      HOSPITAL_ADMIN: {
+        roleKey: 'HOSPITAL_ADMIN',
+        title: 'Hospital Finance & Billing Admin',
+        name: 'Suresh Verma',
+        email: 'admin.billing@aiims.edu',
+        badge: 'FA',
+        tenant: 'AIIMS Super Specialty Hospital',
+        tab: 'HOSPITAL_ADMIN',
+        heroBadge: '💳 FINANCIAL ERP & GST POS TERMINAL',
+        heroTitle: 'Welcome back, <span class="gradient-text-cyan">Suresh Verma</span>',
+        heroSubtitle: 'Today\'s GST POS Revenue: ₹4,82,500 • 100% Tax & Razorpay Terminal Compliant.'
+      },
+      COLLEGE_ADMIN: {
+        roleKey: 'COLLEGE_ADMIN',
+        title: 'Dean of Academic Affairs',
+        name: 'Dr. Meera Mehta',
+        email: 'dean.academics@aiims.edu',
+        badge: 'DE',
+        tenant: 'AIIMS Medical College Governance',
+        tab: 'COLLEGE_ADMIN',
+        heroBadge: '🏛️ NMC ACCREDITATION & GOVERNANCE',
+        heroTitle: 'Welcome back, <span class="gradient-text-cyan">Dr. Meera Mehta</span>',
+        heroSubtitle: 'NMC Minimum Standard Requirements (MSR) Verified • 128 Active medical students in clinical rotation.'
+      },
+      SUPER_ADMIN: {
+        roleKey: 'SUPER_ADMIN',
+        title: 'Enterprise Platform Super Admin',
+        name: 'System Root Admin',
+        email: 'root@pluxmax.com',
+        badge: 'SA',
+        tenant: 'PLUX MAX Enterprise SaaS Global',
+        tab: 'SUPER_ADMIN',
+        heroBadge: '🛡️ MULTI-TENANT SAAS PROVISIONER',
+        heroTitle: 'Global Enterprise <span class="gradient-text-cyan">Command Center</span>',
+        heroSubtitle: '2 Enterprise Hospital Tenants Active • Global white-label licensing and domain isolation online.'
+      }
+    };
+
+    let selectedRole = 'STUDENT';
+
+    function openLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        lucide.createIcons();
+      }
+    }
+
+    function closeLoginModal() {
+      const modal = document.getElementById('loginModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function selectPersonaRole(roleKey) {
+      selectedRole = roleKey;
+      executePersonaLogin();
+    }
+
+    function executePersonaLogin() {
+      const persona = personaMap[selectedRole];
+      
+      // Update Top Navbar Profile Info & Tenant
+      const navAvatar = document.getElementById('nav-avatar');
+      const navName = document.getElementById('nav-name');
+      const navTitle = document.getElementById('nav-title');
+      const navTenant = document.getElementById('nav-tenant');
+
+      if (navAvatar) navAvatar.innerText = persona.badge;
+      if (navName) navName.innerText = persona.name;
+      if (navTitle) navTitle.innerText = persona.title;
+      if (navTenant) navTenant.innerText = persona.tenant;
+
+      // Update Spatial Hero Canvas Banner
+      const heroBadge = document.getElementById('hero-badge');
+      const heroTitle = document.getElementById('hero-title');
+      const heroSubtitle = document.getElementById('hero-subtitle');
+
+      if (heroBadge) heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span>${persona.heroBadge}</span>`;
+      if (heroTitle) heroTitle.innerHTML = persona.heroTitle;
+      if (heroSubtitle) heroSubtitle.innerText = persona.heroSubtitle;
+
+      // Close Modal and Switch Viewport Domain Tab
+      closeLoginModal();
+      switchTab(persona.tab);
+
+      // Re-hydrate icons and scroll active panel smoothly into view
+      lucide.createIcons();
+      const targetPanel = document.getElementById('panel-' + persona.tab);
+      if (targetPanel) {
+        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Init App
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      renderBeds();
+      renderInvoices();
+      renderAcademic();
+      renderLogbook();
+      renderTenants();
+      initCanvas();
+      switchTab('STUDENT');
+    });
+  </script>
+  <!-- ARUNAI MOBILE BOTTOM STATUS BAR -->
+  <div class="md:hidden fixed bottom-0 left-0 w-full h-10 bg-slate-950/90 backdrop-blur-md text-slate-400 text-[11px] font-semibold flex items-center justify-center border-t border-white/10 z-40">
+    <span class="flex items-center gap-1.5">
+      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+      © Arunai Engineering College & Medical Campus ERP • Autonomous
+    </span>
+  </div>
+
+</body>
+</html>
