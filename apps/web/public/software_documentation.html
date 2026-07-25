@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PLUS MAX Enterprise ERP - Complete Software Specification & Deep Architecture Deep Dive</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .header {
+      border-bottom: 4px solid #2563eb;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin: 0 0 10px 0;
+    }
+
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      border-left: 4px solid #2563eb;
+      padding-left: 10px;
+      margin-top: 30px;
+    }
+
+    h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e40af;
+      margin-top: 20px;
+    }
+
+    .meta-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-right: 8px;
+    }
+
+    .grid-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 13px;
+    }
+
+    .grid-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    .grid-table td {
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 14px;
+    }
+
+    @media print {
+      body { padding: 0; }
+      .no-print { display: none; }
+      .page-break { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print" style="margin-bottom: 20px; text-align: right;">
+    <button onclick="window.print()" style="padding: 10px 20px; background: #2563eb; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+      🖨️ Download / Print Complete PDF Document
+    </button>
+  </div>
+
+  <div class="header">
+    <h1>PLUS MAX Enterprise Hospital & Medical College Unified ERP</h1>
+    <div style="font-size: 14px; color: #64748b;">
+      Complete Architectural Deep Dive, Module Specifications & Compliance Guide
+    </div>
+    <div style="margin-top: 15px;">
+      <span class="meta-badge">Version 2.0.0</span>
+      <span class="meta-badge">DPDP & NMC Compliant</span>
+      <span class="meta-badge">WebGPU 3D Engine</span>
+      <span class="meta-badge">Multi-Tenant SaaS</span>
+    </div>
+  </div>
+
+  <h2>1. Executive Summary & Core Platform Architecture</h2>
+  <p>
+    <strong>PLUS MAX</strong> is a state-of-the-art enterprise resource planning platform engineered specifically for healthcare networks, super-specialty hospitals, and NMC-accredited medical colleges. The platform seamlessly unifies clinical care, academic education tracking, financial billing compliance, pharmacy supply chain, diagnostic lab automation, and multi-tenant SaaS management into a single zero-latency web architecture.
+  </p>
+
+  <table class="grid-table">
+    <thead>
+      <tr>
+        <th>Architectural Layer</th>
+        <th>Technology Stack</th>
+        <th>Key Functionality</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Frontend Web App</strong></td>
+        <td>Next.js 14 (App Router), React 18, Tailwind CSS, Lucide Icons, Framer Motion</td>
+        <td>Zero-latency server & client rendering, responsive glassmorphic UI, spatial canvas interfaces.</td>
+      </tr>
+      <tr>
+        <td><strong>Graphics & Spatial Visualization</strong></td>
+        <td>WebGPU, WebGL 2.0 Canvas Renderer</td>
+        <td>360-degree rotatable 3D anatomical human body model, spatial OT floor maps, 3D ward maps.</td>
+      </tr>
+      <tr>
+        <td><strong>Backend API Architecture</strong></td>
+        <td>NestJS REST & WebSocket Microservices</td>
+        <td>High-throughput transaction handling, role-based access control (RBAC), LIS machine sync.</td>
+      </tr>
+      <tr>
+        <td><strong>Multi-Tenant Data Layer</strong></td>
+        <td>PostgreSQL with Schema Isolation</td>
+        <td>Dedicated <code>tenant_schema_*</code> per hospital ensuring 100% data isolation and zero cross-tenant data bleed.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h2>2. Module Breakdown & Comprehensive Feature Matrix</h2>
+
+  <h3>Module 1: Student Portal (Medical College)</h3>
+  <div class="feature-card">
+    <div class="feature-title">1.1 NMC e-Logbook</div>
+    <p>Searchable, highly responsive competency tracker mapping the mandatory 2,683 NMC competencies with Knowledge (K), Know How (KH), Show How (SH), and Perform (P) tags. Includes modular forms for DOAP sessions, AETCOM modules, Family Adoption Programme (FAP) visits, and authenticated faculty digital sign-offs.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">1.2 Attendance & IA 40% Eligibility</div>
+    <p>SVG radial progress rings visualizing theory (≥75% threshold) and practical attendance. Real-time Internal Assessment (IA) score grid with automated red alert banners for students falling below the 40% exam eligibility threshold.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">1.3 Clinical Postings & 1.4 Fees & Hostel</div>
+    <p>Interactive rotation spatial calendar with quick log entry. Online fee dues checkout with downloadable PDF receipt generator, hostel room allocation, mess card tracking, and digital QR gate pass generator.</p>
+  </div>
+
+  <h3>Module 2: Staff & Faculty Portal</h3>
+  <div class="feature-card">
+    <div class="feature-title">2.1 Faculty Logbook E-Sign Desk & 2.2 IA Marks Gradebook</div>
+    <p>Prioritized inbox view for pending student logbook submissions with batch PIN signing and slide-out frosted glass review modal. Spreadsheet-style gradebook with locked left columns, statistical overlays, red &lt;40% highlights, and PIN 9999 HOD freeze locking.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">2.3 Ward Attendance & 2.4 Shift Roster</div>
+    <p>Touch-optimized quick-toggle roster with 360-degree spatial ward map and automated absentee triggers. Duty timeline, shift swap marketplace, and leave management portal.</p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3>Module 3: Doctor EMR & Clinical Portal</h3>
+  <div class="feature-card">
+    <div class="feature-title">3.1 OPD Consult Queue & 3.2 AI Clinical Triage (3D WebGPU)</div>
+    <p>Frosted glass smart cards with zero-click vitals hover snapshot. Rotatable 3D anatomical human body model rendered via WebGPU canvas with clickable organ nodes, ESI acuity scoring (Critical/Urgent/Stable), and predictive STAT lab pre-orders.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">3.3 OT Surgery Schedule & 3.4 E-Prescription Writer</div>
+    <p>Top-down 360 spatial theater floor map, Gantt timeline with auto prep/cleanup buffers, and surgical team conflict matrix. Drug autocomplete search, hard-stop allergy/interaction guardrails with safe alternatives, 1-tap regimen protocols, and SHA-256 digital pharmacy hand-off.</p>
+  </div>
+
+  <h3>Module 4: Financial ERP & POS Terminal</h3>
+  <div class="feature-card">
+    <div class="feature-title">4.1 18% GST Invoices & 4.2 Razorpay POS Terminal</div>
+    <p>Automated SAC code tax routing (SAC 9993 0% Healthcare vs SAC 9997 18% Cosmetic), CGST/SGST vs IGST calculation engine, and compliant credit notes. Direct hardware sync simulator with PCI-DSS card tokenization (<code>tok_rzp_*</code>).</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">4.3 Insurance TPA Pre-auth & 4.4 Patient Billing</div>
+    <p>TPA provider integration network, digital pre-auth packaging, emergency cashless bypass, and automated discharge packets. Real-time master folio charge ingestion, pre-discharge review dashboard, and split payment handling.</p>
+  </div>
+
+  <h3>Module 5: Pharmacy & LIS Diagnostics Module</h3>
+  <div class="feature-card">
+    <div class="feature-title">5.1 Medicine Stock Inventory & 5.2 2D Barcode Dispenser</div>
+    <p>High-density SKU data grid with frosted amber reorder glows (<code>QOH &lt; Par Level</code>) and multi-store transfers. Simulated 2D barcode hardware reader with metallic blue match verification highlight and hard-stop discrepancy alerts.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">5.3 Batch Expiry Tracker & 5.4 LIS Lab Verification</div>
+    <p>30/60/90 day timeline clustering, FEFO (First-Expire First-Out) enforcement, and reverse PO vendor return routing. Bi-directional analyzer sync (Sysmex & Roche), split-screen dual-pane validation UI, and automated pathologist anomaly flagging.</p>
+  </div>
+
+  <h3>Module 6: Super Admin SaaS Command Center</h3>
+  <div class="feature-card">
+    <div class="feature-title">6.1 Tenant Provisioner & 6.2 Custom Domain Binding</div>
+    <p>1-Click onboarding wizard, isolated PostgreSQL schema generation (<code>tenant_schema_*</code>), and automated ICD-10 seed data injection. CNAME/A record DNS visualizer with metallic blue status glow, zero-touch SSL auto-provisioning (Let's Encrypt TLS 1.3), and reverse proxy router.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-title">6.3 Bed Quota Licensing & 6.4 Global System Telemetry Logs</div>
+    <p>SVG capacity radial progress rings, soft 90% frosted amber & hard 100% admission block enforcement, and modular feature flag toggles. WebGPU infinite-scroll telemetry log stream, real-time AI threat highlighting in red glass panels, and granular query builder.</p>
+  </div>
+
+  <h2>3. Vercel Cloud Deployment & Execution Guide</h2>
+  <div class="feature-card">
+    <div class="feature-title">Option A: 1-Click Vercel GitHub Deployment (Recommended)</div>
+    <ol>
+      <li>Push repository changes to GitHub: <code>https://github.com/Rajkumarceo/PLUS-MAX-.git</code></li>
+      <li>Log into <a href="https://vercel.com">Vercel Dashboard</a> and click <strong>Add New Project</strong>.</li>
+      <li>Import <strong>Rajkumarceo/PLUS-MAX-</strong> repository.</li>
+      <li>Set Framework Preset to <strong>Next.js</strong> and Root Directory to <code>apps/web</code>.</li>
+      <li>Click <strong>Deploy</strong>. Vercel will build and assign a global production URL (e.g. <code>https://plus-max-web.vercel.app</code>).</li>
+    </ol>
+  </div>
+
+  <div class="feature-card">
+    <div class="feature-title">Option B: Vercel CLI Terminal Deployment</div>
+    <pre style="background: #0f172a; color: #38bdf8; padding: 12px; border-radius: 6px; font-size: 12px;">
+# 1. Login to Vercel CLI
+npx vercel login
+
+# 2. Deploy Project from Root Directory
+npx vercel --prod
+    </pre>
+  </div>
+
+</body>
+</html>
